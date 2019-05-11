@@ -43,18 +43,22 @@ class App extends Component {
     //   padding: '8px',
     //   cursor: 'pointer'
     // }; ONE LINE STYLE, you use: style={nameConst}
+
+    let persons = null; // declare a new variale where is gonna set the value from jsx
+    if (this.state.showPerson) {
+      persons = (
+        <div >
+        <Person click = {this.switchNameHandler.bind(this,"M.J")} name={this.state.persons[0].name} age={this.state.persons[0].age}>testing OHH</Person>
+        <Person change = {this.nameChangedHanlder} name={this.state.persons[1].name} age={this.state.persons[1].age}/>
+      </div> 
+      )
+    } // function that check if the value of the variable is true or false, and depending of that load the jsx
     return (
       <div className="App">
         <h1>Hi, I'm a React App</h1>
         <p>This is really working!</p>
         <button onClick={this.togglePersonHandler}>Toogle person</button>
-        { this.state.showPerson ?
-          <div >
-            <Person click = {this.switchNameHandler.bind(this,"M.J")} name={this.state.persons[0].name} age={this.state.persons[0].age}>testing OHH</Person>
-            <Person change = {this.nameChangedHanlder} name={this.state.persons[1].name} age={this.state.persons[1].age}/>
-          </div> :
-          null
-          }
+        {persons}
       </div>
     );
   }
