@@ -17,13 +17,19 @@ class App extends Component {
     this.setState({persons: persons})
   }
 
-  nameChangedHanlder = (event) => {
+  nameChangedHanlder = (event, id) => {
+    const persons = this.state.persons.slice() // made a copy from array
+    persons.map( p => {
+      // p.id === id ? p.name = event.target.value
+      if (p.id === id) {
+        p.name = event.target.value 
+      }
+      return p
+    }) // finding a person and making the change
+    
     this.setState({
-      persons:[
-        {name: "M.J", age: 21},
-        {name: event.target.value, age: 23},
-      ],
-    });
+      persons: persons // updating nwith new data
+    })
   }
   togglePersonHandler = () =>{
     const value = this.state.showPerson
@@ -45,7 +51,12 @@ class App extends Component {
       persons = (
         <div >
         {this.state.persons.map((person, index) => {
-          return <Person key={person.id} click={() => this.deleteHanlderPerson(index)} name={person.name} age={person.age}/>
+          return <Person key={person.id} 
+                         click={() => this.deleteHanlderPerson(index)}
+                         name={person.name}
+                         age={person.age}
+                         change={(event)=> this.nameChangedHanlder(event, person.id)}
+                         />
         })}
       </div> 
       )
