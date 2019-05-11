@@ -48,8 +48,9 @@ class App extends Component {
     if (this.state.showPerson) {
       persons = (
         <div >
-        <Person click = {this.switchNameHandler.bind(this,"M.J")} name={this.state.persons[0].name} age={this.state.persons[0].age}>testing OHH</Person>
-        <Person change = {this.nameChangedHanlder} name={this.state.persons[1].name} age={this.state.persons[1].age}/>
+        {this.state.persons.map(person => {
+          return <Person click = {this.switchNameHandler.bind(this,"M.J")} name={person.name} age={person.age}>testing OHH</Person>
+        })}
       </div> 
       )
     } // function that check if the value of the variable is true or false, and depending of that load the jsx
