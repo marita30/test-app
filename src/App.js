@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import Person from './Person/Person';
-
+import ErrorBoundary from './ErrorBoundary/ErrorBoundary'
 class App extends Component {
   state = {
     persons: [
@@ -21,7 +21,7 @@ class App extends Component {
     const persons = this.state.persons.slice() // made a copy from array
     persons.map( p => {
       // p.id === id ? p.name = event.target.value
-      if (p.id === id) {
+      if (p.userId === id) {
         p.name = event.target.value 
       }
       return p
@@ -47,17 +47,22 @@ class App extends Component {
     // }; ONE LINE STYLE, you use: style={nameConst}
 
     let persons = null; // declare a new variale where is gonna set the value from jsx
+    let style = ""
     if (this.state.showPerson) {
+      style = "red"
       persons = (
         <div >
         {this.state.persons.map((person, index) => {
-          return <Person key={person.id} 
+          return(
+          <ErrorBoundary>
+          <Person key={person.id} 
                          click={() => this.deleteHanlderPerson(index)}
                          name={person.name}
                          age={person.age}
                          change={(event)=> this.nameChangedHanlder(event, person.id)}
                          />
-        })}
+          </ErrorBoundary>
+        )})}
       </div> 
       )
     } // function that check if the value of the variable is true or false, and depending of that load the jsx
@@ -65,7 +70,7 @@ class App extends Component {
       <div className="App">
         <h1>Hi, I'm a React App</h1>
         <p>This is really working!</p>
-        <button onClick={this.togglePersonHandler}>Toogle person</button>
+        <button className={style} onClick={this.togglePersonHandler}>Toogle person</button>
         {persons}
       </div>
     );

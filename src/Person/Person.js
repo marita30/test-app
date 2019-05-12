@@ -1,6 +1,10 @@
 import React from 'react'
 import './Person.css';
 const Person = (props) => {
+    const rnd = Math.random();
+    if (rnd > 0.7) {
+        throw new Error('something went wrong')
+    }
     return(
         <div className="person">
             <p onClick={props.click}>I'm {props.name} with {props.age} Years old!</p>
@@ -9,5 +13,4 @@ const Person = (props) => {
         </div>
     );
 }
-
 export default Person;
